@@ -1,2 +1,32 @@
-.idea
-.vscode
+# IDE
+.idea/
+.vscode/
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+dist/
+build/
+
+# Development
+*.log*
+.env*
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+.vite/
+
+# Package managers
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+package-lock.json
