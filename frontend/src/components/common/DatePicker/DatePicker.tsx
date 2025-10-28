@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import DatePickerLib from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import styles from './DatePicker.module.css';
 
 interface DatePickerProps {
@@ -27,54 +29,55 @@ export const DatePicker: FC<DatePickerProps> = ({
     });
   };
 
-  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const date = e.target.value ? new Date(e.target.value) : null;
+  const handleStartDateChange = (date: Date | null) => {
     onStartDateChange(date);
-
     // If end date is before new start date, clear it
     if (date && endDate && endDate < date) {
       onEndDateChange(null);
     }
   };
 
-  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const date = e.target.value ? new Date(e.target.value) : null;
+  const handleEndDateChange = (date: Date | null) => {
     onEndDateChange(date);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.dateField}>
-        <label htmlFor="start-date">Start Date</label>
-        <input
-          type="date"
-          id="start-date"
-          value={startDate ? startDate.toISOString().split('T')[0] : ''}
+        <DatePickerLib
+          selected={startDate}
           onChange={handleStartDateChange}
-          min={minDate.toISOString().split('T')[0]}
-          max={maxDate?.toISOString().split('T')[0]}
-          className={styles.input}
+          minDate={minDate}
+          maxDate={maxDate}
+          customInput={
+            <div className={styles.preview}>
+              {startDate ? formatDate(startDate) : 'Select date'}
+              <div className={styles.calendarIcon} />
+            </div>
+          }
+          showPopperArrow={false}
+          popperClassName={styles.popper}
+          calendarClassName={styles.calendar}
         />
-        {startDate && (
-          <div className={styles.preview}>{formatDate(startDate)}</div>
-        )}
       </div>
 
       <div className={styles.dateField}>
-        <label htmlFor="end-date">End Date</label>
-        <input
-          type="date"
-          id="end-date"
-          value={endDate ? endDate.toISOString().split('T')[0] : ''}
+        <DatePickerLib
+          selected={endDate}
           onChange={handleEndDateChange}
-          min={startDate ? startDate.toISOString().split('T')[0] : minDate.toISOString().split('T')[0]}
-          max={maxDate?.toISOString().split('T')[0]}
+          minDate={startDate || minDate}
+          maxDate={maxDate}
           disabled={!startDate}
-          className={styles.input}
+          customInput={
+            <div className={styles.preview}>
+              {endDate ? formatDate(endDate) : 'Select date'}
+              <div className={styles.calendarIcon} />
+            </div>
+          }
+          showPopperArrow={false}
+          popperClassName={styles.popper}
+          calendarClassName={styles.calendar}
         />
-        {endDate && (
-          <div className={styles.preview}>{formatDate(endDate)}</div>
-        )}
       </div>
     </div>
   );

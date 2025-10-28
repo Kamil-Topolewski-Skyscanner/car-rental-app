@@ -15,11 +15,23 @@ As a potential customer, I want to browse available car types, select my rental 
 
 **Independent Test**: Can be tested by navigating to the car listing page, selecting dates, and verifying that car availability and reservation options update accordingly.
 
-**Date Selection Placement**:
-- A prominent date picker section should be placed below the header and above the car listings
-- Should contain two fields: "Start Date" and "End Date"
-- Should be visible and accessible throughout the browsing experience
-- Selected dates should affect the availability status and reservation options for all cars
+**Date Selection Placement and Design**:
+- Compact, low-profile date picker section below header
+- Maximum width of 600px centered on the page
+- Height: Maximum 80px (reduced from standard height)
+- Minimal padding: 0.75rem (reduced from 1.5rem)
+- Horizontally arranged date fields with optimized spacing
+- Should remain visible and accessible while browsing
+- Selected dates affect availability status and reservation options
+
+**Header Design**:
+- Slim, modern header with blue-to-black gradient background
+- Height: Maximum 70px (reduced from standard height)
+- Gradient: From #2C5282 (deep blue) to #1A202C (near black)
+- Compact vertical padding: 0.75rem (reduced from 2rem)
+- White text with optimized font sizes for smaller height
+- Subtle shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+- Fixed position with z-index to stay above content
 
 **Date Selection Behavior**:
 - Start Date defaults to today
