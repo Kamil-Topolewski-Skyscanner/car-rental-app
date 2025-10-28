@@ -2,8 +2,8 @@
  * Base configuration for API calls
  */
 const config = {
-  carsApi: import.meta.env.VITE_CARS_API_URL,
-  reservationsApi: import.meta.env.VITE_RESERVATIONS_API_URL,
+  carsApi: '/api',
+  reservationsApi: '/api',
   headers: {
     'Content-Type': 'application/json',
   },

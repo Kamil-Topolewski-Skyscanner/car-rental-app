@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useMemo, FC, ReactNode } from 'react';
-import { Car, CarType, CarService } from '../../services';
+import { Car, CarType, CarService } from '@services/index';
 
 interface CarsContextType {
   cars: Car[];

@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
+import { CarsProvider } from './context/CarsContext';
 import './App.css';
 
-const CarList = lazy(() => import('@features/cars/CarList/CarList'));
+const CarListPage = lazy(() => import('./components/pages/CarListPage/CarListPage'));
 
 function App() {
   return (
@@ -10,9 +11,11 @@ function App() {
         <h1>Car Rental</h1>
       </header>
       <main className="app-main">
-        <Suspense fallback={<div>Loading...</div>}>
-          <CarList />
-        </Suspense>
+        <CarsProvider>
+          <Suspense fallback={<div>Loading cars...</div>}>
+            <CarListPage />
+          </Suspense>
+        </CarsProvider>
       </main>
     </div>
   );

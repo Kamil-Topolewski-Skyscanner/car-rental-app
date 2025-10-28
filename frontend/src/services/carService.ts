@@ -9,6 +9,7 @@ export class CarService {
    * Get all available cars
    */
   static async getAllCars(): Promise<Car[]> {
+    console.log('Hello from carService method');
     return carsApi.get<Car[]>('/cars');
   }
 
@@ -16,7 +17,7 @@ export class CarService {
    * Get cars filtered by type
    */
   static async getCarsByType(type: CarType): Promise<Car[]> {
-    return carsApi.get<Car[]>(`/cars?type=${type}`);
+    return carsApi.get<Car[]>(`/cars/${type}`);
   }
 
   /**

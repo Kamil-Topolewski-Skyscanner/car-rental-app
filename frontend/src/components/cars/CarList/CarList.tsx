@@ -1,5 +1,5 @@
 import { FC, useState, useCallback, useMemo } from 'react';
-import { Car, CarType } from '../../../services';
+import { Car, CarType } from '@services/index';
 import { CarCard } from '../CarCard/CarCard';
 import styles from './CarList.module.css';
 
