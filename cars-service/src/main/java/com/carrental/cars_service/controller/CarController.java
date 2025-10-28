@@ -28,6 +28,11 @@ public class CarController {
     return ResponseEntity.ok(carService.getCarsByType(carType));
   }
 
+  @GetMapping
+  public ResponseEntity<List<Car>> getCars() {
+    return ResponseEntity.ok(carService.getCars());
+  }
+
   @PostMapping
   public ResponseEntity<Car> addCar(@RequestBody Car car) {
     return new ResponseEntity<>(carService.addCar(car), HttpStatus.CREATED);

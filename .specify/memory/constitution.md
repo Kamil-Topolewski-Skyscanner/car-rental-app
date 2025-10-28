@@ -26,8 +26,14 @@ All service interfaces must be designed and documented before implementation. Op
 ### III. Testing Strategy
 Unit tests are mandatory for all business logic. Integration tests required for API endpoints. Test coverage must be at least 80%. Mock external service dependencies in tests. Tests must run as part of CI/CD pipeline.
 
-### IV. Frontend Architecture
+### Frontend Architecture
 Single Page Application using modern framework (React/Angular/Vue). Components must be modular and reusable. State management must be centralized. UI components must have unit tests. Responsive design is mandatory.
+
+### VI. Image Handling & Asset Management
+- Primary and fallback image sources must be configured for reliability
+- Image loading states and errors must be handled gracefully
+- Asset optimization for performance (appropriate sizes, formats, and quality)
+- CDN integration for image delivery when applicable
 
 ### V. Security & Error Handling
 Authentication required for all API endpoints except public ones. CORS policies must be explicitly defined. All errors must be properly handled and logged. Sensitive data must be encrypted in transit and at rest.

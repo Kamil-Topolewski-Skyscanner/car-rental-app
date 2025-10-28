@@ -19,4 +19,8 @@ public class CarService {
   public Car addCar(Car car) {
     return carRepository.save(car);
   }
+
+  public List<Car> getCars() {
+    return carRepository.findAll();
+  }
 }
