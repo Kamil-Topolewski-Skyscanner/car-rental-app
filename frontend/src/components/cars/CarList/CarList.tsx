@@ -7,6 +7,8 @@ interface CarListProps {
   cars: Car[];
   onCarSelect: (car: Car) => void;
   onCarReserve: (car: Car) => void;
+  startDate: Date;
+  endDate: Date;
 }
 
 export const CarList: FC<CarListProps> = ({ cars, onCarSelect, onCarReserve }) => {

@@ -1,23 +1,30 @@
 import { FC, useState } from 'react';
 import { Car, ReservationService } from '../../../services';
-import { DatePicker } from '../../common/DatePicker/DatePicker';
+import { ReservationForm } from '../../forms/ReservationForm/ReservationForm';
 import styles from './ReservationModal.module.css';
 
 interface ReservationModalProps {
   car: Car;
   onClose: () => void;
   onSuccess: () => void;
+  startDate: Date;
+  endDate: Date;
 }
 
 export const ReservationModal: FC<ReservationModalProps> = ({
   car,
   onClose,
   onSuccess,
+  startDate,
+  endDate
 }) => {
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [step, setStep] = useState<'form' | 'review'>('form');
+  const [customerData, setCustomerData] = useState<{
+    customerName: string;
+    customerEmail: string;
+  } | null>(null);
 
   const calculateTotalPrice = () => {
     if (!startDate || !endDate) return 0;
@@ -25,9 +32,14 @@ export const ReservationModal: FC<ReservationModalProps> = ({
     return days * car.pricePerDay;
   };
 
+  const handleFormSubmit = (data: { customerName: string; customerEmail: string }) => {
+    setCustomerData(data);
+    setStep('review');
+  };
+
   const handleReserve = async () => {
-    if (!startDate || !endDate) {
-      setError('Please select both start and end dates');
+    if (!startDate || !endDate || !customerData) {
+      setError('Missing required information');
       return;
     }
 
@@ -39,9 +51,8 @@ export const ReservationModal: FC<ReservationModalProps> = ({
         carId: car.id,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
-        // These would typically come from a form or user context
-        customerName: 'Test Customer',
-        customerEmail: 'test@example.com'
+        customerName: customerData.customerName,
+        customerEmail: customerData.customerEmail
       });
 
       onSuccess();
@@ -57,49 +68,60 @@ export const ReservationModal: FC<ReservationModalProps> = ({
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <h2 className={styles.title}>Reserve {car.make} {car.model}</h2>
+        <h2 className={styles.title}>
+          {step === 'form'
+            ? `Reserve ${car.make} ${car.model}`
+            : 'Review Your Reservation'
+          }
+        </h2>
 
         <div className={styles.content}>
-          <DatePicker
-            startDate={startDate}
-            endDate={endDate}
-            onStartDateChange={setStartDate}
-            onEndDateChange={setEndDate}
-            minDate={new Date()}
-            maxDate={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)} // +30 days
-          />
+          <div className={styles.dates}>
+            <p>From: {startDate.toLocaleDateString()}</p>
+            <p>To: {endDate.toLocaleDateString()}</p>
+          </div>
 
-          {startDate && endDate && (
-            <div className={styles.summary}>
-              <p className={styles.price}>
-                Total Price: ${totalPrice.toFixed(2)}
-              </p>
-              <p className={styles.days}>
-                {Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))} days
-              </p>
-            </div>
-          )}
+          <div className={styles.summary}>
+            <p className={styles.price}>
+              Total Price: ${totalPrice.toFixed(2)}
+            </p>
+            <p className={styles.days}>
+              {Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))} days
+            </p>
+          </div>
 
           {error && (
             <div className={styles.error}>{error}</div>
           )}
 
-          <div className={styles.actions}>
-            <button
-              className={styles.cancelButton}
-              onClick={onClose}
-              disabled={loading}
-            >
-              Cancel
-            </button>
-            <button
-              className={styles.reserveButton}
-              onClick={handleReserve}
-              disabled={loading || !startDate || !endDate}
-            >
-              {loading ? 'Creating Reservation...' : 'Confirm Reservation'}
-            </button>
-          </div>
+          {step === 'form' ? (
+            <ReservationForm onSubmit={handleFormSubmit} />
+          ) : (
+            <div>
+              <div className={styles.reviewSection}>
+                <h3>Customer Information</h3>
+                <p><strong>Name:</strong> {customerData?.customerName}</p>
+                <p><strong>Email:</strong> {customerData?.customerEmail}</p>
+              </div>
+
+              <div className={styles.actions}>
+                <button
+                  className={styles.cancelButton}
+                  onClick={() => setStep('form')}
+                  disabled={loading}
+                >
+                  Back
+                </button>
+                <button
+                  className={styles.reserveButton}
+                  onClick={handleReserve}
+                  disabled={loading}
+                >
+                  {loading ? 'Creating Reservation...' : 'Confirm Reservation'}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

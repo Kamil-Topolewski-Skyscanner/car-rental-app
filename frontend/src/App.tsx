@@ -1,8 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { CarsProvider } from './context/CarsContext';
+import { DateRangeProvider } from './context/DateRangeContext';
 import './App.css';
 
-const CarListPage = lazy(() => import('./components/pages/CarListPage/CarListPage'));
+const CarListPage = lazy(() => import('./components/pages/CarListPage'));
 
 function App() {
   return (
@@ -11,11 +12,13 @@ function App() {
         <h1>Car Rental</h1>
       </header>
       <main className="app-main">
-        <CarsProvider>
-          <Suspense fallback={<div>Loading cars...</div>}>
-            <CarListPage />
-          </Suspense>
-        </CarsProvider>
+        <DateRangeProvider>
+          <CarsProvider>
+            <Suspense fallback={<div>Loading cars...</div>}>
+              <CarListPage />
+            </Suspense>
+          </CarsProvider>
+        </DateRangeProvider>
       </main>
     </div>
   );

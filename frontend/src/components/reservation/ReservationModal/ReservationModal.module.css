@@ -53,11 +53,43 @@
 }
 
 .error {
-  color: #dc2626;
-  font-size: 0.875rem;
-  padding: 0.75rem;
-  background-color: #fee2e2;
-  border-radius: 0.5rem;
+  color: red;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.dates {
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  margin: 10px 0;
+}
+
+.dates p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.reviewSection {
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 20px 0;
+}
+
+.reviewSection h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.reviewSection p {
+  margin: 5px 0;
+  color: #555;
 }
 
 .actions {

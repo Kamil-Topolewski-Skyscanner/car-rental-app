@@ -20,11 +20,15 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
+      '/api/cars': {
         target: 'http://localhost:8083',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, '/api')
+      },
+      '/api/reservations': {
+        target: 'http://localhost:8082',
+        changeOrigin: true,
+        secure: false,
       }
     }
   },
