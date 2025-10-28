@@ -47,6 +47,8 @@ class ApiClient {
   }
 
   async post<T>(path: string, data: unknown): Promise<T> {
+    console.log("data");
+    console.log(data);
     const response = await fetch(`${this.baseUrl}${path}`, {
       method: 'POST',
       headers: config.headers,

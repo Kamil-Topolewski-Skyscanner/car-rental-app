@@ -25,35 +25,23 @@ export enum CarType {
  * Reservation request payload
  */
 export interface ReservationRequest {
-  carId: string;
-  startDate: string;
-  endDate: string;
-  customerName: string;
-  customerEmail: string;
+  customerId: string;
+  reservationStartDate: string; // Format: "2025-12-17T12:00:00"
+  duration: number;
+  carType: CarType;
 }
 
 /**
  * Reservation response from the reservations service
  */
 export interface Reservation {
-  id: string;
+  id: number;
+  customerId: string;
   carId: string;
-  startDate: string;
-  endDate: string;
-  customerName: string;
-  customerEmail: string;
-  totalPrice: number;
-  status: ReservationStatus;
-  createdAt: string;
-  updatedAt: string;
-}
-
-/**
- * Reservation status enum
- */
-export enum ReservationStatus {
-  PENDING = 'PENDING',
-  CONFIRMED = 'CONFIRMED',
-  CANCELLED = 'CANCELLED',
-  COMPLETED = 'COMPLETED',
+  reservationStartDate: string; // Format: "2025-12-17T12:00:00"
+  reservationEndDate: string;   // Format: "2025-12-17T12:00:00"
+  duration: number;
+  price: number;
+  createdAt: string;           // ISO string of LocalDateTime
+  updatedAt: string;           // ISO string of LocalDateTime
 }

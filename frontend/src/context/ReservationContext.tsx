@@ -6,7 +6,7 @@ interface ReservationContextType {
   loading: boolean;
   error: Error | null;
   createReservation: (request: ReservationRequest) => Promise<void>;
-  fetchReservationsByEmail: (email: string) => Promise<void>;
+  fetchReservationsByCustomerId: (customerId: string) => Promise<void>;
   getReservationById: (id: string) => Reservation | undefined;
   cancelReservation: (id: string) => Promise<void>;
 }
@@ -36,11 +36,11 @@ export const ReservationProvider: FC<ReservationProviderProps> = ({ children }) 
     }
   }, []);
 
-  const fetchReservationsByEmail = useCallback(async (email: string) => {
+  const fetchReservationsByCustomerId = useCallback(async (customerId: string) => {
     try {
       setLoading(true);
       setError(null);
-      const data = await ReservationService.getReservationsByEmail(email);
+      const data = await ReservationService.getReservationsByCustomerId(customerId);
       setReservations(data);
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to fetch reservations'));
@@ -73,7 +73,7 @@ export const ReservationProvider: FC<ReservationProviderProps> = ({ children }) 
     loading,
     error,
     createReservation,
-    fetchReservationsByEmail,
+    fetchReservationsByCustomerId,
     getReservationById,
     cancelReservation,
   }), [
@@ -81,7 +81,7 @@ export const ReservationProvider: FC<ReservationProviderProps> = ({ children }) 
     loading,
     error,
     createReservation,
-    fetchReservationsByEmail,
+    fetchReservationsByCustomerId,
     getReservationById,
     cancelReservation,
   ]);

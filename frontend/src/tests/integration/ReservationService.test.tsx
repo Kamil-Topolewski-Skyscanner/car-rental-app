@@ -6,7 +6,7 @@ import { ReservationService } from '../services';
 jest.mock('../services', () => ({
   ReservationService: {
     createReservation: jest.fn(),
-    getReservationsByEmail: jest.fn(),
+    getReservationsByCustomerId: jest.fn(),
     cancelReservation: jest.fn(),
   }
 }));
@@ -18,7 +18,7 @@ const TestComponent = () => {
     loading,
     error,
     createReservation,
-    fetchReservationsByEmail
+    fetchReservationsByCustomerId
   } = useReservations();
 
   if (loading) return <div>Loading...</div>;
@@ -26,12 +26,12 @@ const TestComponent = () => {
 
   return (
     <div>
-      <button onClick={() => fetchReservationsByEmail('test@example.com')}>
+      <button onClick={() => fetchReservationsByCustomerId('test-customer-id')}>
         Fetch Reservations
       </button>
       {reservations.map(reservation => (
         <div key={reservation.id}>
-          Reservation: {reservation.customerName} - {reservation.startDate}
+          Reservation: {reservation.customerId} - {reservation.reservationStartDate}
         </div>
       ))}
     </div>
@@ -46,20 +46,30 @@ describe('Reservation Service Integration', () => {
   it('fetches reservations successfully', async () => {
     const mockReservations = [
       {
-        id: '1',
-        customerName: 'John Doe',
-        startDate: '2025-11-01',
-        endDate: '2025-11-05',
+        id: 1,
+        customerId: 'test-customer-id',
+        carId: 'car-1',
+        reservationStartDate: '2025-11-01T12:00:00',
+        reservationEndDate: '2025-11-05T12:00:00',
+        duration: 4,
+        price: 200,
+        createdAt: '2025-10-28T10:00:00',
+        updatedAt: '2025-10-28T10:00:00'
       },
       {
-        id: '2',
-        customerName: 'Jane Smith',
-        startDate: '2025-12-01',
-        endDate: '2025-12-05',
-      },
+        id: 2,
+        customerId: 'test-customer-id',
+        carId: 'car-2',
+        reservationStartDate: '2025-12-01T12:00:00',
+        reservationEndDate: '2025-12-05T12:00:00',
+        duration: 4,
+        price: 300,
+        createdAt: '2025-10-28T10:00:00',
+        updatedAt: '2025-10-28T10:00:00'
+      }
     ];
 
-    (ReservationService.getReservationsByEmail as jest.Mock).mockResolvedValue(mockReservations);
+    (ReservationService.getReservationsByCustomerId as jest.Mock).mockResolvedValue(mockReservations);
 
     render(
       <ReservationProvider>
@@ -70,14 +80,14 @@ describe('Reservation Service Integration', () => {
     fireEvent.click(screen.getByText('Fetch Reservations'));
 
     await waitFor(() => {
-      expect(screen.getByText(/John Doe/)).toBeInTheDocument();
-      expect(screen.getByText(/Jane Smith/)).toBeInTheDocument();
+      expect(screen.getByText(/2025-11-01/)).toBeInTheDocument();
+      expect(screen.getByText(/2025-12-01/)).toBeInTheDocument();
     });
   });
 
   it('handles reservation errors gracefully', async () => {
     const error = new Error('Failed to fetch reservations');
-    (ReservationService.getReservationsByEmail as jest.Mock).mockRejectedValue(error);
+    (ReservationService.getReservationsByCustomerId as jest.Mock).mockRejectedValue(error);
 
     render(
       <ReservationProvider>

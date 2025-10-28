@@ -47,12 +47,14 @@ export const ReservationModal: FC<ReservationModalProps> = ({
       setLoading(true);
       setError(null);
 
+      // Using email as customerId temporarily - in a real app, you'd get this from auth
+      const customerId = customerData.customerEmail;
+
       await ReservationService.createReservation({
-        carId: car.id,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        customerName: customerData.customerName,
-        customerEmail: customerData.customerEmail
+        customerId,
+        startDate,
+        endDate,
+        carType: car.type
       });
 
       onSuccess();
