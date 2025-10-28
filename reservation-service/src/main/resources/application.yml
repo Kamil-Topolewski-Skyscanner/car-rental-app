@@ -1,6 +1,14 @@
 spring:
   application:
     name: reservation-service
+  datasource:
+    url: jdbc:postgresql://localhost:5433/reservation_db
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update # create db schema for classes annotated with @Entity, if it doesn't exist
+    database-platform: org.hibernate.dialect.PostgreSQLDialect # tells Hibernate which SQL dialect
 
 
 server:
