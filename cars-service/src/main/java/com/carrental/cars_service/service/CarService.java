@@ -15,4 +15,8 @@ public class CarService {
   public List<Car> getCarsByType(CarType carType) {
     return carRepository.findByCarType(carType);
   }
+
+  public Car addCar(Car car) {
+    return carRepository.save(car);
+  }
 }
