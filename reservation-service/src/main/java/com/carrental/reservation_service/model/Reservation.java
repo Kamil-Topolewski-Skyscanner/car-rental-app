@@ -30,6 +30,9 @@ public class Reservation {
   private LocalDateTime reservationStartDate;
 
   @Column(nullable = false)
+  private LocalDateTime reservationEndDate;
+
+  @Column(nullable = false)
   private Integer duration;
 
   @Column(nullable = false)

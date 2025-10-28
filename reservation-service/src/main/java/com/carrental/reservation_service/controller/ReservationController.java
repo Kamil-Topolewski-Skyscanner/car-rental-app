@@ -1,5 +1,6 @@
 package com.carrental.reservation_service.controller;
 
+import com.carrental.reservation_service.dto.ReservationRequest;
 import com.carrental.reservation_service.model.Reservation;
 import com.carrental.reservation_service.service.ReservationService;
 import jakarta.validation.Valid;
@@ -19,7 +20,7 @@ public class ReservationController {
 
   @PostMapping
   public ResponseEntity<Reservation> addReservation(
-      @Valid @RequestBody Reservation reservationRequest) {
+      @Valid @RequestBody ReservationRequest reservationRequest) {
     return new ResponseEntity<>(
         reservationService.addReservation(reservationRequest), HttpStatus.CREATED);
   }
