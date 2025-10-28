@@ -11,7 +11,6 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +35,7 @@ public class Reservation {
 
     @Column(nullable = false)
     @Positive
-    private Float price;
+    private Float price; // TODO: handle currency
 
     @CreationTimestamp
     private LocalDateTime createdAt;
