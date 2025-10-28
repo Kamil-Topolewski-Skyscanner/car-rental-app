@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: cars-service
+
+
+server:
+  port: 8083
