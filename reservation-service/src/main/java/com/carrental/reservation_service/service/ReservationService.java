@@ -37,10 +37,10 @@ public class ReservationService {
               List<Reservation> existingReservations = reservationRepository.findByCarId(carId);
               return existingReservations.stream()
                   .noneMatch(
-                      reservation ->
-                          reservationEndDate.isBefore(reservation.getReservationEndDate())
-                              || reservationStartDate.isAfter(
-                                  reservation.getReservationStartDate()));
+                      r ->
+                          reservationStartDate.isBefore(r.getReservationEndDate())
+                              && reservationEndDate.isAfter(
+                                  r.getReservationStartDate()));
             })
         .findFirst();
   }
