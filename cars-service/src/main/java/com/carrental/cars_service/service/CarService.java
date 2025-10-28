@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class CarService {
   private final CarRepository carRepository;
 
-  public List<Car> getCarsByType(CarType carType) {
-    return carRepository.findByCarType(carType);
+  public List<String> getCarsByType(CarType carType) {
+    return carRepository.findByCarType(carType).stream().map(Car::getCarId).toList();
   }
 
   public Car addCar(Car car) {

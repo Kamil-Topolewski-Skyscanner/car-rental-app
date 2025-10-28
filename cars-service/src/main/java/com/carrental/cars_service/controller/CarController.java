@@ -24,7 +24,7 @@ public class CarController {
   private final CarService carService;
 
   @GetMapping("/{carType}")
-  public ResponseEntity<List<Car>> getCar(@PathVariable CarType carType) {
+  public ResponseEntity<List<String>> getCarsIds(@PathVariable CarType carType) {
     return ResponseEntity.ok(carService.getCarsByType(carType));
   }
 
