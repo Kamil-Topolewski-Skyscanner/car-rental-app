@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
-import { Car, ReservationService } from '../../../services';
+import { Car, ReservationService, Reservation } from '../../../services';
 import { ReservationForm } from '../../forms/ReservationForm/ReservationForm';
+import { ReservationConfirmation } from '../ReservationConfirmation/ReservationConfirmation';
 import styles from './ReservationModal.module.css';
 
 interface ReservationModalProps {
@@ -21,6 +22,7 @@ export const ReservationModal: FC<ReservationModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState<'form' | 'review'>('form');
+  const [completedReservation, setCompletedReservation] = useState<Reservation | null>(null);
   const [customerData, setCustomerData] = useState<{
     customerName: string;
     customerEmail: string;
@@ -50,14 +52,14 @@ export const ReservationModal: FC<ReservationModalProps> = ({
       // Using email as customerId temporarily - in a real app, you'd get this from auth
       const customerId = customerData.customerEmail;
 
-      await ReservationService.createReservation({
+      const reservation = await ReservationService.createReservation({
         customerId,
         startDate,
         endDate,
         carType: car.type
       });
 
-      onSuccess();
+      setCompletedReservation(reservation);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to create reservation');
     } finally {
@@ -66,6 +68,18 @@ export const ReservationModal: FC<ReservationModalProps> = ({
   };
 
   const totalPrice = calculateTotalPrice();
+
+  if (completedReservation) {
+    return (
+      <ReservationConfirmation
+        reservation={completedReservation}
+        onClose={() => {
+          onClose();
+          onSuccess();
+        }}
+      />
+    );
+  }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
