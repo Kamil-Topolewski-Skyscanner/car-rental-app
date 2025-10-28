@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ReservationService {
-    private final ReservationRepository reservationRepository;
+  private final ReservationRepository reservationRepository;
 
-    public Reservation addReservation(Reservation reservationRequest) {
-        return reservationRepository.save(reservationRequest);
-    }
+  public Reservation addReservation(Reservation reservationRequest) {
+    return reservationRepository.save(reservationRequest);
+  }
 }

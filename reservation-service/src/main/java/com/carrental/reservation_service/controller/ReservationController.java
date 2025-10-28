@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/reservations")
 @RequiredArgsConstructor
 public class ReservationController {
-    private final ReservationService reservationService;
+  private final ReservationService reservationService;
 
-    @PostMapping
-    public ResponseEntity<Reservation> addReservation(
-            @Valid @RequestBody Reservation reservationRequest) {
-        return new ResponseEntity<>(
-                reservationService.addReservation(reservationRequest), HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<Reservation> addReservation(
+      @Valid @RequestBody Reservation reservationRequest) {
+    return new ResponseEntity<>(
+        reservationService.addReservation(reservationRequest), HttpStatus.CREATED);
+  }
 
-    // TODO: /getReservationList
+  // TODO: /getReservationList
 }
