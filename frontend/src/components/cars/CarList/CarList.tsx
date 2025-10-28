@@ -6,9 +6,10 @@ import styles from './CarList.module.css';
 interface CarListProps {
   cars: Car[];
   onCarSelect: (car: Car) => void;
+  onCarReserve: (car: Car) => void;
 }
 
-export const CarList: FC<CarListProps> = ({ cars, onCarSelect }) => {
+export const CarList: FC<CarListProps> = ({ cars, onCarSelect, onCarReserve }) => {
   const [selectedType, setSelectedType] = useState<CarType | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -44,13 +45,14 @@ export const CarList: FC<CarListProps> = ({ cars, onCarSelect }) => {
       </div>
 
       <div className={styles.filters}>
-        {Object.values(CarType).map(type => (
+        {[CarType.SEDAN, CarType.SUV, CarType.VAN].map(type => (
           <button
             key={type}
             onClick={() => handleTypeSelect(type)}
             className={`${styles.filterButton} ${
               selectedType === type ? styles.filterButtonActive : ''
             }`}
+            data-testid={`filter-${type.toLowerCase()}`}
           >
             {type}
           </button>
@@ -64,6 +66,7 @@ export const CarList: FC<CarListProps> = ({ cars, onCarSelect }) => {
               key={car.id}
               car={car}
               onClick={onCarSelect}
+              onReserve={onCarReserve}
             />
           ))
         ) : (

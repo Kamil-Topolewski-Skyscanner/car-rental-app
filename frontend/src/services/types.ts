@@ -16,12 +16,9 @@ export interface Car {
  * Car type enum from the cars service
  */
 export enum CarType {
-  ECONOMY = 'ECONOMY',
-  COMPACT = 'COMPACT',
-  MIDSIZE = 'MIDSIZE',
-  LUXURY = 'LUXURY',
+  SEDAN = 'SEDAN',
   SUV = 'SUV',
-  VAN = 'VAN',
+  VAN = 'VAN'
 }
 
 /**

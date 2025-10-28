@@ -9,6 +9,7 @@ export class ReservationService {
    * Create a new reservation
    */
   static async createReservation(request: ReservationRequest): Promise<Reservation> {
+    console.log('Add reservation');
     return reservationsApi.post<Reservation>('/reservations', request);
   }
 
