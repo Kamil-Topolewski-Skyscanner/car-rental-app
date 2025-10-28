@@ -2,11 +2,11 @@
 
 <!--
 SYNC IMPACT REPORT
-Version change: 0.0.0 → 1.0.0 (Initial version)
+Version change: 1.0.0 → 1.1.0
 Modified principles:
-- Initial setup of all principles
+- Added backend code constraint to Technical Standards
 Added sections:
-- All sections are new
+- None
 Removed sections:
 - None
 Templates requiring updates:
@@ -34,11 +34,11 @@ Authentication required for all API endpoints except public ones. CORS policies 
 
 ## Technical Standards
 
-- Backend: Java Spring Boot microservices
+- Backend: Java Spring Boot microservices (provided externally in `/cars-service` and `/reservation-service` packages - NO backend code generation allowed)
 - Frontend: React.js with TypeScript
-- Database: Each service uses its own PostgreSQL instance
-- API Documentation: OpenAPI/Swagger
-- Testing: JUnit, React Testing Library
+- Database: Each service uses its own PostgreSQL instance (managed by respective backend services)
+- API Documentation: OpenAPI/Swagger (provided by backend services)
+- Testing: React Testing Library for frontend components
 - CI/CD: Must include build, test, and deployment stages
 - Logging: Centralized logging with correlation IDs
 
@@ -66,4 +66,4 @@ This constitution is the foundation for all development practices in the Car Ren
 
 All pull requests must comply with these principles. Exceptions require explicit approval from tech leads with documented justification.
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-28 | **Last Amended**: 2025-10-28
+**Version**: 1.1.0 | **Ratified**: 2025-10-28 | **Last Amended**: 2025-10-28
